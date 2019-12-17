@@ -29,11 +29,11 @@ class Author(models.Model):
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=200)
+    title = models.CharField(max_length=200)
     # Foreign Key used because book can only have one author, but authors can have multiple books
     author = models.ForeignKey(Author, on_delete=models.SET_NULL, null=True)
     # ManyToManyField used because genre can contain many books. Books can cover many genres.
-    genre = models.ManyToManyField(Genre)
+    genre = models.ManyToManyField(Genre, help_text='Select a genre for this book')
     summary = models.TextField(max_length=1000, help_text="Enter a brief description of the Book")
     imprint = models.CharField(max_length=200)
     # isbn specifies its label as "ISBN" using the first unnamed parameter because
@@ -42,7 +42,7 @@ class Book(models.Model):
                                                              '.org/content/what-isbn">ISBN number</a>')
 
     def __str__(self):
-        return self.name
+        return self.title
 
     # get_absolute_url() returns a URL that can be used to access a detail record for this model
     # for this to work we will have to define a URL mapping that has the name book-detail,
@@ -51,18 +51,26 @@ class Book(models.Model):
     def get_absolute_url(self):
         return reverse("book-detail", args=[str(self.id)])
 
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in Admin."""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+    
+    display_genre.short_description = 'Genre'
+
 
 class BookInstance(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4(), help_text='Unique ID for this particular book '
                                                                             'across whole library')
     book = models.ForeignKey(Book, on_delete=models.SET_NULL, null=True)
     imprint = models.CharField(max_length=200)
-    due_back = models.DateField(null=True, blank=True)
+    date_due_back = models.DateField(null=True, blank=True)
 
     LOAN_STATUS = (
         ('o', 'On loan'),
         ('a', 'Available'),
     )
+
+    # tuple containing tuples of key-value pairs then pass it to the choices argument
 
     status = models.CharField(max_length=1, choices=LOAN_STATUS, blank=True, default='a', help_text="Book Availability")
 
@@ -78,7 +86,7 @@ class BookInstance(models.Model):
         # f'{self.id} ({self.book.title})'
 
     class Meta:
-        ordering = ["due_back"]
+        ordering = ["date_due_back"]
 
     # You can declare model - level metadata for your Model by declaring class Meta, as shown.
     # One of the most useful
