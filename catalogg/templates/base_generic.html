@@ -11,7 +11,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600|Open+Sans:400,600|Work+Sans:400,500&display=swap" rel="stylesheet">
     <!-- Add additional CSS in static file -->
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
@@ -22,7 +22,7 @@
 
 </head>
 
-<body>
+<body class="bg-light">
 
   <div class="container-fluid">
 
@@ -36,7 +36,7 @@
                 <ul class="sidebar-nav">
                 <li><a href="{% url 'index' %}">Home</a></li>
                 <li><a href="{% url 'books' %}">All books</a></li>
-                <li><a href="">All authors</a></li>
+                <li><a href="{% url 'author_list' %}">All authors</a></li>
                 </ul>
             {% endblock %}
 
@@ -52,13 +52,13 @@
         <div class="pagination">
             <span class="page-links">
                 {% if page_obj.has_previous %}
-                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">previous</a>
+                    <a href="{{ request.path }}?page={{ page_obj.previous_page_number }}">Previous&nbsp;</a>
                 {% endif %}
                 <span class="page-current">
-                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
                 </span>
                 {% if page_obj.has_next %}
-                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">next</a>
+                    <a href="{{ request.path }}?page={{ page_obj.next_page_number }}">&nbsp; Next</a>
                 {% endif %}
             </span>
         </div>

@@ -1,0 +1,27 @@
+
+{% extends 'base_generic.html' %}
+
+{% block content %}
+
+
+
+    <h3 class="">Book Author Detail:</h3>
+
+    <div style="width: 30rem;" class=" card mt-5 mr-3 mb-3 rounded justify-content-center shadow ">
+
+          <div class="card-header">
+              <p><span class="text-muted">Author Name: </span>{{ author_detail.first_name }} {{ author_detail.last_name }}</p>
+          </div>
+
+           <ul class="list-group list-group-flush">
+               <li class="list-group-item"><span class="text-muted">First Name: </span>{{ author_detail.first_name }}</li>
+               <li class="list-group-item"><span class="text-muted">DOB: </span>{{ author_detail.date_of_birth }}</li>
+               <li class="list-group-item"><span class="text-muted">DOD: </span>{{ author_detail.date_of_death }}</li>
+           </ul>
+
+    
+
+</div>
+
+
+{% endblock %}

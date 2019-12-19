@@ -1,0 +1,36 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    {% if author_list %}
+       <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+        <div class="card table-responsive shadow pt-3 px-3 mb-4 bg-white rounded justify-content-center">
+            <table class="justify-content-center table table-sm table-bordered table-hover">
+        <caption>List of Authors</caption>
+  <thead class="bg-light" >
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Date of Birth</th>
+
+    </tr>
+  </thead>
+<tbody>
+
+        {% for i in author_list %}
+
+
+    <tr>
+      <td><a href="{{ i.get_absolute_url }}">{{ i.first_name }}</a></td>
+      <td>{{ i.last_name }}</td>
+      <td>{{ i.date_of_birth }}</td>
+    </tr>
+
+
+        {% endfor %}
+        </tbody>
+        </table></div>
+                </div></div></div>
+    {% endif %}
+{% endblock %}

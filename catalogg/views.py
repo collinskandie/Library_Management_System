@@ -58,6 +58,8 @@ class BookListView(generic.ListView):
     model = Book
     paginate_by = 1
 
+    list_filter = ('status', 'date_due_back')
+
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get the context
         context = super(BookListView, self).get_context_data(**kwargs)
@@ -72,7 +74,21 @@ class BookListView(generic.ListView):
 # the template you can access the list of books with the template variable named object OR book (i.e. generically
 # "the_model_name").
 
-# If you need to, you can change the template used and the name of the context object used to reference the book in the template. You can also override methods to, for example, add additional information to the context.
+# If you need to, you can change the template used and the name of the context object used to reference the book in
+# the template. You can also override methods to, for example, add additional information to the context.
 
 class BookDetailView(generic.DetailView):
     model = Book
+
+
+class AuthorListView(generic.ListView):
+    queryset = Author.objects.all()
+    context_object_name = "author_list"
+    paginate_by = 20
+    template_name = 'catalogg/AuthorList.html'
+
+
+class AuthorDetailView(generic.DetailView):
+    queryset = Author.objects.all()
+    context_object_name = 'author_detail'
+    template_name = 'catalogg/Authordetail.html'

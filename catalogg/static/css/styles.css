@@ -4,6 +4,18 @@
     list-style: none;
 }
 body {
-    background-color:rgb(226, 226, 226);
+    /*background-color: rgba(235, 237, 238, 0.31);*/
     margin-top: 15px;
+    font-family: 'Nunito', sans-serif;
+    font-weight: 600;
+    font-size: 18px;
   }
+table{
+    background-color:white;
+    text-align: center;
+
+}
+
+/*th{*/
+/*    background-color: rgba(235, 237, 238, 0.31);*/
+/*}*/
